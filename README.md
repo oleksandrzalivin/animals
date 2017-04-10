@@ -1,2 +1,2 @@
-# figures
-Table of figures
+# Animals
+Table of animals

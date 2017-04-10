@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="table of animals">
+		<link rel="icon" href="favicon.ico" type="image/x-icon" />
+		<title>Animals</title>
+	</head>
+	<body>
+		<p>empty</p>
+		<textarea id='text' cols='20' rows='5'></textarea>
+		<input type='button' onClick='getText()' />
+		<script type="text/javascript">
+			function getText() {
+     			var text = document.getElementById('text').value; //А дальше не ясно
+     			console.log(text.split(/\n/));
+			}
+		</script>
+
+	</body>
+</html>

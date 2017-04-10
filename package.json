@@ -1,0 +1,22 @@
+{
+  "name": "figures",
+  "version": "1.0.0",
+  "description": "table of animals",
+  "main": "server.js",
+  "scripts": {
+    "app": "nodemon ./server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oleksandrzalivin/animals.git"
+  },
+  "author": "Oleksandr Zalivin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/oleksandrzalivin/animals/issues"
+  },
+  "homepage": "https://github.com/oleksandrzalivin/animals#readme",
+  "dependencies": {
+    "express": "^4.15.2"
+  }
+}
