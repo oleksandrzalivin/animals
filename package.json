@@ -4,7 +4,8 @@
   "description": "table of animals",
   "main": "server.js",
   "scripts": {
-    "app": "nodemon ./server.js"
+    "db": "node ./scripts/start_mongo.js",
+    "start": "nodemon ./index.js"
   },
   "repository": {
     "type": "git",
@@ -17,6 +18,11 @@
   },
   "homepage": "https://github.com/oleksandrzalivin/animals#readme",
   "dependencies": {
-    "express": "^4.15.2"
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
+    "mongodb": "^2.2.25"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
   }
 }
