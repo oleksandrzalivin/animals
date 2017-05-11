@@ -3,7 +3,10 @@ const express = require('express'),
 	app = express();
 
 app.use(express.static('./src'));
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use( bodyParser.json() );       // для поддержки JSON
+app.use(bodyParser.urlencoded({     // для поддержки URL кодировки
+  extended: true
+}));
 
 require('./routes')(app);
 

@@ -27,7 +27,7 @@ define(['jquery', 'underscore', 'backbone',
             $('#right-side').html('<h1 class="loader">Loading...</h1>');
             
             // checking for exist such element
-            var res = this._checkElement(this.edit, collection, id) ? true : false;
+            var res = this._checkElement('edit', collection, id) ? true : false;
             if (!res) return;
             
             // empty url
@@ -37,7 +37,6 @@ define(['jquery', 'underscore', 'backbone',
                 return;
 			}
             
-            return;
             // collection only
 			if (collection && !id) {
 
@@ -47,8 +46,8 @@ define(['jquery', 'underscore', 'backbone',
 				});
 				var id = model._id;
     
-				App.Views.rightSide = new App.Views.RightSide_c({model: App.Collections.collectionsInfo.get(id)});
-				App.Views.rightSide.render();
+				App.Views.rightSideEdit = new App.Views.RightSideEdit_c({model: App.Collections.collectionsInfo.get(id)});
+				App.Views.rightSideEdit.render();
                 return;
 			}
 			
@@ -57,8 +56,8 @@ define(['jquery', 'underscore', 'backbone',
 
 				// find a model
 				var theCollection = App.Collections[collection];
-				App.Views.rightSide = new App.Views.RightSide_i({model: theCollection.get(id)});
-				App.Views.rightSide.render();
+				App.Views.rightSideEdit = new App.Views.RightSideEdit_i({model: theCollection.get(id)});
+				App.Views.rightSideEdit.render();
 			}
 		},
 
@@ -71,7 +70,7 @@ define(['jquery', 'underscore', 'backbone',
             $('#right-side').html('<h1 class="loader">Loading...</h1>');
             
             // checking for exist such element
-            var res = this._checkElement(this.defaultRoute, collection, id) ? true : false;
+            var res = this._checkElement('defaultRoute', collection, id) ? true : false;
             if (!res) return;
             
             // empty url
@@ -108,7 +107,9 @@ define(['jquery', 'underscore', 'backbone',
 			$('#right-side').html('<p>Page is loading...</p>');
 			var self = this,
 				retry = function() {
-				    caller(colName, id);
+				    self.navigate( (caller === 'edit' ? caller + '/' : '') + (colName||'') + (id||''), { trigger: true });
+//                    trigger('route: "' + caller + '"', [colName, id]);
+//                    caller(colName, id);
 					console.log('Restart with updated data');
 				};
             collection.once("update", retry);
@@ -125,16 +126,6 @@ define(['jquery', 'underscore', 'backbone',
             } else {
                 
                 typeof App.Views.wrapperEdit !== 'undefined' && $('#wrapper-edit').length ? App.Views.wrapperEdit.remove_() : null;
-                /*
-                // create an instance and render it
-                if (typeof App.Views.wrapper === 'undefined') {
-                    require(['app/wrapper'], function() {
-                        App.Views.wrapper = new App.Views.Wrapper();
-                        App.Views.wrapper.render();
-                    });
-                } else {
-                    App.Views.wrapper.render();
-                }*/
                 App.Helpers.ifIsNot((typeof App.Views.wrapper), function () {
                     App.Views.wrapper = new App.Views.Wrapper();
                 });
