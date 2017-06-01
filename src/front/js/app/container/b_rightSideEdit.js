@@ -32,16 +32,15 @@ define(['jquery', 'underscore', 'backbone',
                         <table class="tab-collection">\
                             <thead>\
                                 <tr>\
-                                    <td colspan="2"><input type="text" name="name" placeholder="Name"></input>\</td>\
+                                    <td><input type="text" name="name" placeholder="Name"></input>\</td>\
                                 </tr>\
                             </thead>\
                             <tbody>\
                                 <tr>\
                                     <td>Choose an image. <input type="file" name="file"></input>\</td>\
-                                    <td><input type="text" name="file-name" placeholder="Enter [file-name.format]"></input>\</td>\
                                 </tr>\
                                 <tr>\
-                                    <td colspan="2"><textarea name="description" placeholder="Description. Use \'enter\' to make a paragraf."></textarea></td>\
+                                    <td><textarea name="description" placeholder="Description. Use \'enter\' to make a paragraf."></textarea></td>\
                                 </tr>\
                             </tbody>\
                         </table>\
@@ -83,10 +82,10 @@ define(['jquery', 'underscore', 'backbone',
                         }
                     });
                 }
-                
                 this.collection.create({
                     name: $('form input[name="name"]').val(),
-                    img: './front/images/' + $('form input[name="file-name"]').val(),
+                    img: './front/images/' + $('form input[type="file"]').val()
+                        .split(/\\/)[$('form input[type="file"]').val().split(/\\/).length - 1],
                     description: $('form textarea[name="description"]').val().split(/\n/)
                 });
             }

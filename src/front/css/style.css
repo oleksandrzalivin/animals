@@ -11,6 +11,10 @@ h1 {
     font-weight: bold;
 }
 
+textarea {
+    width: 100%;
+}
+
 .loader {
     padding-left: 50px;
     background: url('../images/loader.gif') no-repeat 10px 8px;
@@ -89,7 +93,9 @@ h1 {
 }
 
 .tab-collection {
-	margin: 10px;
+	margin: 10px 0;
+    width: 699px;
+    
 }
 
 .tab-collection td {
@@ -115,6 +121,10 @@ h1 {
 .tab-collection tbody p {
 	text-indent: 1em;
 	padding: 5px 5px 3px 5px;
+}
+
+.submit {
+    background: #f5f5f0;
 }
 
 #footer {

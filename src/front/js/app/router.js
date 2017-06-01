@@ -56,7 +56,7 @@ define(['jquery', 'underscore', 'backbone',
 
 				// find a model
 				var theCollection = App.Collections[collection];
-				App.Views.rightSideEdit = new App.Views.RightSideEdit_i({model: theCollection.get(id)});
+				App.Views.rightSideEdit = new App.Views.RightSideEdit_i({model: theCollection.get(id), parent: theCollection});
 				App.Views.rightSideEdit.render();
 			}
 		},
@@ -104,12 +104,11 @@ define(['jquery', 'underscore', 'backbone',
 			}
 		},
 		_onEmptyCollections: function (collection, caller, colName, id) {
-			$('#right-side').html('<p>Page is loading...</p>');
+			$('#right-side').html('<h1 class="loader">Loading...</h1>');
 			var self = this,
 				retry = function() {
-				    self.navigate( (caller === 'edit' ? caller + '/' : '') + (colName||'') + (id||''), { trigger: true });
-//                    trigger('route: "' + caller + '"', [colName, id]);
-//                    caller(colName, id);
+//				    self.navigate(path, {trigger: true});
+                    caller === 'edit' ? self.edit(colName, id) : self.defaultRoute(colName, id);
 					console.log('Restart with updated data');
 				};
             collection.once("update", retry);

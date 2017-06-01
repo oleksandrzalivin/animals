@@ -11,7 +11,7 @@ var timeNow = function () {
 }
 
 // Connection URL
-var url = 'mongodb://localhost:27017/animals';
+var url = "mongodb://oleksandr:3qwerty3@ds161001.mlab.com:61001/animals";
 
 function database (callback) {
 	// Use connect method to connect to the server

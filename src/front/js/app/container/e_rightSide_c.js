@@ -33,11 +33,13 @@ define(['jquery', 'underscore', 'backbone'], function ($, _, Backbone) {
 				</table>\
 				<% var childrens = "<table class=\'tab-collection\'><thead><tr><td colspan=\'2\'>Members</td></tr></thead>",\
 						val = this.collection.toJSON();\
-				for (var i in val) {\
-					childrens += "<tr><td><a href=\'#" + this.model.get("name") + "/" + val[i]._id + "\'>" +\
-					val[i].name + "</a></td><td>" + val[i].years + " years old</td></tr>";\
-				}\
-				childrens += "</table>"\
+                if (val.length) {\
+                    for (var i in val) {\
+                        childrens += "<tr><td><a href=\'#edit/" + this.model.get("name") + "/" + val[i]._id + "\'>" +\
+                        val[i].name + "</a></td><td>" + val[i].years + " years old</td></tr>";\
+                    }\
+				    childrens += "</table>";\
+                } else {childrens="<p>No members.</p>"}\
 				%>\
 				<%= childrens %>\
 				'),

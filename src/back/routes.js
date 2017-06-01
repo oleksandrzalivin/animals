@@ -21,7 +21,7 @@ var file = function(req, res, next) {
     //максимальный размер файла
     var maxSize = 2 * 1024 * 1024; //2MB
     //поддерживаемые типы(в данном случае это картинки формата jpeg, jpg и png)
-    var supportMimeTypes = ['image/jpg', 'image/png'];
+    var supportMimeTypes = ['image/jpg', 'image/png', 'image/jpeg'];
     //массив с ошибками произошедшими в ходе загрузки файла
     var errors = [];
 
@@ -85,6 +85,19 @@ var file = function(req, res, next) {
     form.parse(req);
 };
 
+function deleteFile (list) {
+    if (!list.length) return;
+    list.map(function (val) {
+        //здесь будет храниться путь k файлу
+        var path = __dirname.slice(0, -4) + 'front/images/' + val;
+        if(fs.existsSync(path)) {
+            //если загружаемый файл существует удаляем его
+            fs.unlinkSync(path);
+        }
+        console.log('deleted file(s):', val);
+    });
+}
+
 module.exports = function (app) {
 
 	app.get('/', function (req, res) {
@@ -125,11 +138,41 @@ module.exports = function (app) {
 		});
 	});
     
+    app.put('/api/collection/:collectionName/:modelID', function (req, res) {
+		var collectionName = req.params.collectionName,
+            modelID = req.params.modelID;
+        delete req.body._id;
+		db(function(db) {
+			db.collection(collectionName).updateOne({"_id": ObjectID(modelID)}, req.body, function (err, docs) {
+                if (err) {
+                    res.send(err)
+                } else {
+				    res.send('Model saved: ' + modelID);
+                }
+				db.close();
+				timeNow();
+			});
+		});
+	});
+    
     app.delete('/api/collection/:id/:model', function (req, res) {
 		var id = req.params.id,
-            model = req.params.model;
+            model = req.params.model,
+            img = [];
+        db(function(db) {
+			db.collection(id).find({"_id": ObjectID(model)}).toArray(function (err, docs) {
+                if (err) res.send(err);
+                docs.map(function (val) {
+                    img.push(val.img.split("/")[val.img.split("/").length - 1]);// take only imgName.jpg
+                });
+                deleteFile(img);
+				db.close();
+				timeNow();
+			});
+		});
+        
 		db(function(db) {
-			db.collection(id).deleteOne({"_id": ObjectID(model) }, function (err, docs) {
+			db.collection(id).deleteOne({"_id": ObjectID(model)}, function (err, docs) {
                 if (err) res.send(err);
 				res.send('Model deleted: ' + model);
 				db.close();
