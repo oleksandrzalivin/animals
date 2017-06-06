@@ -12,8 +12,8 @@ define(['jquery', 'underscore', 'backbone'], function ($, _, Backbone) {
                 'submit .submit': 'onSubmit'
             },
 			template: _.template('\
-                <a href="#" class="edit plane">Edit</a><br />\
-                <a href="#" class="delete plane">Delete</a><br />\
+                <a href="#" class="edit plane btn btn-warning">Edit</a><br />\
+                <a href="#" class="delete plane btn btn-danger">Delete</a><br />\
 				<table class="tab-collection plane">\
 					<thead>\
 						<tr>\
@@ -48,18 +48,18 @@ define(['jquery', 'underscore', 'backbone'], function ($, _, Backbone) {
                     <table class="tab-collection">\
                         <thead>\
                             <tr>\
-                                <td colspan="2"><input type="text" name="name" placeholder=<%= name %>>Enter a name</input></td>\
+                                <td colspan="2"><input class="form-control" type="text" name="name" placeholder=<%= name %>>Enter a name</input></td>\
                             </tr>\
                         </thead>\
                         <tbody>\
                             <tr>\
-                                <td class="person"><img src=<%= img %> /><input type="file" name="img">Point an image</input></td>\
+                                <td class="person"><img src=<%= img %> /><input class="form-control" type="file" name="img">Point an image</input></td>\
                                 <td>\
                                     <table>\
-                                        <tr><td>Gender: <input type="text" name="gender" placeholder=<%= gender %>></input></td></tr>\
-                                        <tr><td>Age: <input type="text" name="age" placeholder=<%= years %>></input></td></tr>\
-                                        <tr><td>Weight(kg): <input type="text" name="weight" placeholder=<%= weight_kg %>></input></td></tr>\
-                                        <tr><td>Favorite food: <input type="text" name="food" placeholder=<%= favorite_food %>></input></td></tr>\
+                                        <tr><td>Gender: <input class="form-control" type="text" name="gender" placeholder=<%= gender %>></input></td></tr>\
+                                        <tr><td>Age: <input class="form-control" type="text" name="age" placeholder=<%= years %>></input></td></tr>\
+                                        <tr><td>Weight(kg): <input class="form-control" type="text" name="weight" placeholder=<%= weight_kg %>></input></td></tr>\
+                                        <tr><td>Favorite food: <input class="form-control" type="text" name="food" placeholder=<%= favorite_food %>></input></td></tr>\
                                     </table>\
                                 </td>\
                             </tr>\
@@ -69,12 +69,12 @@ define(['jquery', 'underscore', 'backbone'], function ($, _, Backbone) {
                                     for(var i in description) {\
                                         text += description[i] + "\\n";\
                                     } %>\
-                                    <textarea name="description"><%= text %></textarea>\
+                                    <textarea class="form-control" name="description"><%= text %></textarea>\
                                 </td>\
                             </tr>\
                         </tbody>\
                     </table>\
-                    <button class="submit" type="submit">Save</button>\
+                    <button class="submit btn btn-primary" type="submit">Save</button>\
                 </form>'),
 			render: function () {
 				var self = this;

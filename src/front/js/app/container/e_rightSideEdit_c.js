@@ -16,9 +16,9 @@ define(['jquery', 'underscore', 'backbone'], function ($, _, Backbone) {
                 "submit": 'onSubmit'
             },
 			template: _.template('\
-                <p><a  class="edit plane" href="#">Edit</a></p>\
-                <p><a  class="delete plane" href="#">Delete</a></p>\
-                <p><a  class="addMember plane" href="#">Add a member</a></p>\
+                <p><a  class="edit plane btn btn-warning" href="#">Edit</a></p>\
+                <p><a  class="delete plane btn btn-danger" href="#">Delete</a></p>\
+                <p><a  class="addMember plane btn btn-primary" href="#">Add a member</a></p>\
 				<table class="tab-collection plane">\
 					<thead>\
 						<tr>\
@@ -57,13 +57,13 @@ define(['jquery', 'underscore', 'backbone'], function ($, _, Backbone) {
                     <table class="tab-collection">\
                         <thead>\
                             <tr>\
-                                <td><input type="text" name="name" placeholder="<%= name %>"></input></td>\
+                                <td><input class="form-control" type="text" name="name" placeholder="<%= name %>"></input></td>\
                             </tr>\
                         </thead>\
                         <tbody>\
                             <tr>\
                                 <td>\
-                                    <input type="file" name="img">Change the image</input>\
+                                    <input class="form-control" type="file" name="img">Change the image</input>\
                                     <img src=<%= img %> />\
                                 </td>\
                             </tr>\
@@ -73,12 +73,12 @@ define(['jquery', 'underscore', 'backbone'], function ($, _, Backbone) {
                                     for(var i in description) {\
                                         text += description[i] + "\\n";\
                                     } %>\
-                                    <textarea name="description"> <%= text %> </textarea>\
+                                    <textarea class="form-control" name="description"> <%= text %> </textarea>\
                                 </td>\
                             </tr>\
                         </tbody>\
                     </table>\
-                    <button type="submit">Save</button>\
+                    <button class="btn btn-primary" type="submit">Save</button>\
                     <% var childrens = "<table class=\'tab-collection\'><thead><tr><td colspan=\'2\'>Members</td></tr></thead>",\
                             val = this.collection.toJSON();\
                     for (var i in val) {\
@@ -95,29 +95,29 @@ define(['jquery', 'underscore', 'backbone'], function ($, _, Backbone) {
                     <table class="tab-collection">\
                         <thead>\
                             <tr>\
-                                <td colspan="2"><input type="text" name="name">Enter a name</input></td>\
+                                <td colspan="2"><input class="form-control" type="text" name="name">Enter a name</input></td>\
                             </tr>\
                         </thead>\
                         <tbody>\
                             <tr>\
-                                <td><input type="file" name="img">Point an image</input></td>\
+                                <td><input class="form-control" type="file" name="img">Point an image</input></td>\
                                 <td>\
                                     <table>\
-                                        <tr><td>Gender: <input type="text" name="gender">male or female</input></td></tr>\
-                                        <tr><td>Age(years): <input type="text" name="age">3.1</input></td></tr>\
-                                        <tr><td>Weight(kg): <input type="text" name="weight">2</input></td></tr>\
-                                        <tr><td>Favorite food: <input type="text" name="food">fish</input></td></tr>\
+                                        <tr><td>Gender: <input class="form-control" type="text" name="gender">male or female</input></td></tr>\
+                                        <tr><td>Age(years): <input class="form-control" type="text" name="age">3.1</input></td></tr>\
+                                        <tr><td>Weight(kg): <input class="form-control" type="text" name="weight">2</input></td></tr>\
+                                        <tr><td>Favorite food: <input class="form-control" type="text" name="food">fish</input></td></tr>\
                                     </table>\
                                 </td>\
                             </tr>\
                             <tr>\
                                 <td colspan="2">\
-                                    <textarea name="description">Use Enter to make a paragraf</textarea>\
+                                    <textarea class="form-control" name="description">Use Enter to make a paragraf</textarea>\
                                 </td>\
                             </tr>\
                         </tbody>\
                     </table>\
-                    <button type="submit">Save</button>\
+                    <button class="btn btn-primary" type="submit">Save</button>\
                 <form>',
 			render: function () {
 				var self = this;

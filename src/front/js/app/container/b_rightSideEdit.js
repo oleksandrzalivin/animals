@@ -26,31 +26,32 @@ define(['jquery', 'underscore', 'backbone',
 						</tr>\
 					</tbody>\
 				</table>'),
-            template_form: function(self) {
+            template_form: function() {
                 return '\
                     <form class="submit" autocomplete="on">\
                         <table class="tab-collection">\
                             <thead>\
                                 <tr>\
-                                    <td><input type="text" name="name" placeholder="Name"></input>\</td>\
+                                    <td><input class="form-control" type="text" name="name" placeholder="Name"></input>\</td>\
                                 </tr>\
                             </thead>\
                             <tbody>\
                                 <tr>\
-                                    <td>Choose an image. <input type="file" name="file"></input>\</td>\
+                                    <td>Choose an image. <input class="form-control" type="file" name="file"></input>\
+                                        <img id="image" src="./front/images/loader.gif" /></td>\
                                 </tr>\
                                 <tr>\
-                                    <td><textarea name="description" placeholder="Description. Use \'enter\' to make a paragraf."></textarea></td>\
+                                    <td><textarea class="form-control" name="description" placeholder="Description. Use \'enter\' to make a paragraf."></textarea></td>\
                                 </tr>\
                             </tbody>\
                         </table>\
-                        <button type="submit">Save</button>\
+                        <button class="btn btn-primary" type="submit">Save</button>\
                     </form>'
             },
 			render: function () {
 				var self = this;
 				// cleare the el
-				this.$el.html('<p><a href="#" class="add-new-collection">Add new collection.</a></p>');
+				this.$el.html('<p><a href="#" class="add-new-collection btn btn-primary">Add new collection</a></p>');
 				_.each(this.collection.toJSON(), function (model, index, list) {
 					self.$el.append(self.template(model));
 				});
@@ -61,6 +62,26 @@ define(['jquery', 'underscore', 'backbone',
                 e.preventDefault();
                 this.$el.prepend(this.template_form);
                 $(e.target).css('display', 'none');
+                $('input[name="file"]').change(function () {
+                    var file = $('input[name="file"]').prop('files');
+                    if (file.length) {
+                        // Создаем новый объект FormData
+                        var fd = new FormData();
+                        fd.append('file', file[0]);
+                        // Загружаем файл
+                        $.ajax({
+                            url: 'api/file',
+                            data: fd,
+                            contentType:false,
+                            processData:false,
+                            type:'POST',
+                            success: function() {
+                                $('#image').attr('src', './front/images/' + $('form input[type="file"]').val()
+                                                        .split(/\\/)[$('form input[type="file"]').val().split(/\\/).length - 1]);
+                            }
+                        });
+                    }
+                });
             },
             onForm: function(e) {
                 e.preventDefault();
@@ -88,6 +109,7 @@ define(['jquery', 'underscore', 'backbone',
                         .split(/\\/)[$('form input[type="file"]').val().split(/\\/).length - 1],
                     description: $('form textarea[name="description"]').val().split(/\n/)
                 });
+                this.$el.html('<h1>Successfull</h1>');
             }
 		});
 	});

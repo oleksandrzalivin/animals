@@ -159,17 +159,42 @@ module.exports = function (app) {
 		var id = req.params.id,
             model = req.params.model,
             img = [];
-        db(function(db) {
-			db.collection(id).find({"_id": ObjectID(model)}).toArray(function (err, docs) {
-                if (err) res.send(err);
-                docs.map(function (val) {
-                    img.push(val.img.split("/")[val.img.split("/").length - 1]);// take only imgName.jpg
+        if (id == 'collectionsInfo') { //delete a collection with it's childrens
+            db(function(db) {
+                db.collection(id).find({"_id": ObjectID(model)}).toArray(function (err, docs) {
+                    if (err) res.send(err);
+                    deleteCol(docs[0].name);
+                    docs.map(function (val) {
+                        img.push(val.img.split("/")[val.img.split("/").length - 1]);// take only imgName.jpg
+                    });
+                    deleteFile(img);
+                    db.close();
+                    timeNow();
                 });
-                deleteFile(img);
-				db.close();
-				timeNow();
-			});
-		});
+                function deleteCol(name) {
+                    db.collection(name).find().toArray(function (err, docs) {
+                        if (err) res.send(err);
+                        docs.map(function (val) {
+                            img.push(val.img.split("/")[val.img.split("/").length - 1]);// take only imgName.jpg
+                        });
+                    deleteFile(img);
+                    });
+                db.collection(name).remove();
+                }
+            });
+        } else {
+            db(function(db) {
+                db.collection(id).find({"_id": ObjectID(model)}).toArray(function (err, docs) {
+                    if (err) res.send(err);
+                    docs.map(function (val) {
+                        img.push(val.img.split("/")[val.img.split("/").length - 1]);// take only imgName.jpg
+                    });
+                    deleteFile(img);
+                    db.close();
+                    timeNow();
+                });
+            });
+        }
         
 		db(function(db) {
 			db.collection(id).deleteOne({"_id": ObjectID(model)}, function (err, docs) {
